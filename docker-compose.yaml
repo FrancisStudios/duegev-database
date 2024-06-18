@@ -1,0 +1,36 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: duegev_wiki_db
+      MYSQL_USER: duegev
+      MYSQL_PASSWORD: duegevpw
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    networks: 
+      unicumnet: 
+        ipv4_address: 172.20.0.41
+  www:
+    image: php:8.1-apache-buster
+    volumes:
+      -"./:/var/www/html"
+    ports:
+      - 80:80
+    networks: 
+      unicumnet: 
+        ipv4_address: 172.20.0.41
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8001:80
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+    networks: 
+      unicumnet: 
+        ipv4_address: 172.20.0.41
+
+networks:
+  unicumnet:
+    name: opt_unicumnet
+    external: true
