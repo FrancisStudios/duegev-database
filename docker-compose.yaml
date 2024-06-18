@@ -18,7 +18,7 @@ services:
       - 80:80
     networks: 
       unicumnet: 
-        ipv4_address: 172.20.0.41
+        ipv4_address: 172.20.0.42
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
@@ -28,7 +28,7 @@ services:
       - PMA_PORT=3306
     networks: 
       unicumnet: 
-        ipv4_address: 172.20.0.41
+        ipv4_address: 172.20.0.43
 
 networks:
   unicumnet:
