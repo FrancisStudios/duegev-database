@@ -1,28 +1,24 @@
-version: '3'
+version: '3.3'
 services:
   db:
     image: mysql:latest
+    restart: always
     environment:
-      MYSQL_DATABASE: duegev_wiki_db
-      MYSQL_USER: duegev
-      MYSQL_PASSWORD: duegevpw
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1
-  www:
-    image: php:8.1-apache-buster
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'duegev'
+      MYSQL_PASSWORD: 'duegevpassword'
+      MYSQL_ROOT_PASSWORD: 'duegevpassword'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
     volumes:
-      - "./:/var/www/html"
-    ports:
-      - 80:80
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8001:80
-    environment:
-      - PMA_HOST=db
-      - PMA_PORT=3306
+      - my-db:/var/lib/mysql
     networks: 
       unicumnet: 
         ipv4_address: 172.20.0.55
+volumes:
+  my-db:
 
 networks:
   unicumnet:
